@@ -23,6 +23,9 @@
 # Inherit from common AOSP config
 $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 
+# Enable project quotas and casefolding for emulated storage without sdcardfs
+$(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
+
 # Default device path for common folder
 DEVICE_PATH := device/$(BOARD_VENDOR)/$(PRODUCT_RELEASE_NAME)
 
