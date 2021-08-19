@@ -45,3 +45,4 @@ on fs
     # Load Tuxera exFAT & NTFS modules
     insmod /vendor/lib/modules/texfat.ko
     insmod /vendor/lib/modules/tntfs.ko
+    start boot-hal-1-1
