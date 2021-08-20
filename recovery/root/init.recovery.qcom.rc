@@ -29,10 +29,15 @@ import /init.recovery.qcom_decrypt.rc
 
 on init
     write /sys/class/backlight/panel0-backlight/brightness 200
+    setprop sys.usb.configfs 1
 
     # Create location for fs_mgr to store abbreviated output from filesystem
     # checker programs.
     mkdir /dev/fscklogs 0770 root system
+
+on property:ro.boot.usbcontroller=*
+    setprop sys.usb.controller ${ro.boot.usbcontroller}
+    write /sys/class/udc/${ro.boot.usbcontroller}/device/../mode peripheral
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
