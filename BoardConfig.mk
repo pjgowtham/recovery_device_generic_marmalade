@@ -135,6 +135,7 @@ TARGET_RECOVERY_DEVICE_MODULES += \
     android.hidl.base@1.0 \
     ashmemd \
     ashmemd_aidl_interface-cpp \
+    libandroidicu \
     libashmemd_client \
     libcap \
     libion \
