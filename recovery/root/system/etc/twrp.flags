@@ -1,11 +1,5 @@
 # mount point	fstype	device											device2				flags
-# Logical partitions
-/product																					flags=display="Product"
-/vendor																						flags=display="Vendor";mounttodecrypt
-/odm																						flags=display="ODM"
-
-# Other partitions
-/metadata		ext4	/dev/block/by-name/metadata											flags=display="Metadata";wrappedkey
+/metadata		ext4	/dev/block/by-name/metadata											flags=display="Metadata"
 /firmware		vfat	/dev/block/bootdevice/by-name/modem									flags=slotselect;display="Firmware";mounttodecrypt;fsflags="ro,shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337,context=u:object_r:firmware_file:s0"
 /boot			emmc	/dev/block/bootdevice/by-name/boot									flags=slotselect
 
@@ -31,7 +25,6 @@
 /efsg_CA		emmc	/dev/block/bootdevice/by-name/fsgCA									flags=backup=1;subpartitionof=/efs1
 
 # ASUS-Specific partitions
-/asusfw			ext4	/dev/block/bootdevice/by-name/asusfw								flags=slotselect;display="ASUS-specific Firmware";backup=1;fsflags="ro,nosuid,noatime,nodev,barrier=1,noauto_da_alloc"
 /batinfo		ext4	/dev/block/bootdevice/by-name/batinfo								flags=display="Battery Info";fsflags=ro
 
 # System Configuration & ASUS keys

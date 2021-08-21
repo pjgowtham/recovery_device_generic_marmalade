@@ -29,15 +29,15 @@ import /init.recovery.qcom_decrypt.rc
 
 on init
     write /sys/class/backlight/panel0-backlight/brightness 200
-    setprop sys.usb.configfs 1
 
     # Create location for fs_mgr to store abbreviated output from filesystem
     # checker programs.
     mkdir /dev/fscklogs 0770 root system
 
-on property:ro.boot.usbcontroller=*
-    setprop sys.usb.controller ${ro.boot.usbcontroller}
-    write /sys/class/udc/${ro.boot.usbcontroller}/device/../mode peripheral
+    # prepdecrypt.sh override props
+    #setprop prepdecrypt.setpatch_override true
+    #setprop prepdecrypt.setpatch false
+    #setprop prepdecrypt.loglevel 2
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
@@ -50,4 +50,9 @@ on fs
     # Load Tuxera exFAT & NTFS modules
     insmod /vendor/lib/modules/texfat.ko
     insmod /vendor/lib/modules/tntfs.ko
+
+on boot
+    start health-hal-2-1
+
+on post-fs
     start boot-hal-1-1
