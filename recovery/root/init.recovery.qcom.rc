@@ -39,6 +39,8 @@ on init
     #setprop prepdecrypt.setpatch false
     #setprop prepdecrypt.loglevel 2
 
+    start vendor.qti.vibrator
+
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
@@ -56,3 +58,11 @@ on boot
 
 on post-fs
     start boot-hal-1-1
+
+service vendor.qti.vibrator /system/bin/vendor.qti.hardware.vibrator.service
+    user root
+    group root
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
