@@ -37,4 +37,4 @@
 /asuskey6		emmc	/dev/block/bootdevice/by-name/asuskey6								flags=backup=1;subpartitionof=/sysconf
 
 # Removable storage
-/usbstorage		vfat	/dev/block/sdg1									/dev/block/sdg		flags=fsflags=utf8;display="USB Storage";storage;wipeingui;removable
+/usbstorage		vfat	/dev/block/sdh1									/dev/block/sdh		flags=fsflags=utf8;display="USB Storage";storage;wipeingui;removable
