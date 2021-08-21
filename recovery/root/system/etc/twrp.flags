@@ -1,5 +1,5 @@
 # mount point	fstype	device											device2				flags
-/metadata		ext4	/dev/block/by-name/metadata											flags=display="Metadata";wrappedkey
+/metadata		ext4	/dev/block/by-name/metadata											flags=display="Metadata"
 /firmware		vfat	/dev/block/bootdevice/by-name/modem									flags=slotselect;display="Firmware";mounttodecrypt;fsflags="ro,shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337,context=u:object_r:firmware_file:s0"
 /boot			emmc	/dev/block/bootdevice/by-name/boot									flags=slotselect
 
