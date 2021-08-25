@@ -161,6 +161,7 @@ TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 TARGET_RECOVERY_QCOM_RTC_FIX := true
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.0/lun.%d/file
+#TW_CUSTOM_CPU_TEMP_PATH := 
 TW_THEME := portrait_hdpi
 TW_Y_OFFSET := 120
 TW_H_OFFSET := -120
