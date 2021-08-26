@@ -39,13 +39,10 @@ on init
     setprop prepdecrypt.setpatch false
     #setprop prepdecrypt.loglevel 2
 
-    start vendor.qti.vibrator
+    # load_modules override props
+    #setprop load_modules.loglevel 2
 
-on property:prepdecrypt.vendor_mounted=1
-    insmod /v/lib/modules/aw8697.ko
-    insmod /v/lib/modules/focaltech_fts_zf.ko
-    insmod /v/lib/modules/texfat.ko
-    insmod /v/lib/modules/tntfs.ko
+    start vendor.qti.vibrator
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
@@ -55,7 +52,6 @@ on fs
     chown root system /dev/fscklogs/log
     chmod 0770 /dev/fscklogs/log
 
-on fs && on property:ro.boot.fastboot=1
     # Load Tuxera exFAT & NTFS modules
     insmod /vendor/lib/modules/texfat.ko
     insmod /vendor/lib/modules/tntfs.ko
