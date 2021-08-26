@@ -54,6 +54,15 @@ finish()
 	exit 0
 }
 
+finish_error()
+{
+	umount "$TEMPVEN"
+	$setprop_bin $SCRIPTNAME.vendor_mounted 0
+	rmdir "$TEMPVEN"
+	log_print 0 "$SCRIPTNAME incomplete. Some modules may not be loaded."
+	exit 2
+}
+
 check_fastboot_boot()
 {
 	is_fastboot_boot=$(getprop ro.boot.fastboot)
@@ -81,14 +90,6 @@ check_resetprop()
 	fi
 }
 
-check_dynamic()
-{
-	dynamic_partitions=$(getprop ro.boot.dynamic_partitions)
-	if [ "$dynamic_partitions" = "true" ]; then
-		unset suffix
-	fi
-}
-
 temp_mount()
 {
 	mkdir "$1"
@@ -113,39 +114,28 @@ load_module()
 {
 	is_module_loaded=$(lsmod | grep "$1")
 	if [ -n "$is_module_loaded" ]; then
-		log_print 2 "$1 module already loaded. Proceeding..."
+		log_print 1 "$1 module already loaded. Proceeding..."
 	else
 		insmod "$TEMPVEN"/lib/modules/"$1".ko
-		log_print 2 "Loaded $1 module."        
+		is_module_loaded=$(lsmod | grep "$1")
+		if [ -n "$is_module_loaded" ]; then
+			log_print 1 "Loaded $1 module."
+		else
+			log_print 1 "Unable to load $1 module."
+		fi
 	fi
 }
 
-log_print 2 "Running $SCRIPTNAME script for TWRP..."
+log_print 1 "Running $SCRIPTNAME script for TWRP..."
 check_resetprop
 check_fastboot_boot
-
-ab_device=$(getprop ro.build.ab_update)
-
-if [ -n "$ab_device" ]; then
-	log_print 2 "A/B device detected! Finding current boot slot..."
-	suffix=$(getprop ro.boot.slot_suffix)
-	if [ -z "$suffix" ]; then
-		suf=$(getprop ro.boot.slot)
-		if [ -n "$suf" ]; then
-			suffix="_$suf"
-		fi
-	fi
-	log_print 2 "Current boot slot: $suffix"
-fi
 
 if [ -n "$is_fastboot_boot" ]; then
 	log_print 1 "No module loading required. Exiting script."
 	exit 0
 else
-	check_dynamic
-
 	TEMPVEN=/v
-	venpath="/dev/block/bootdevice/by-name/vendor$suffix"
+	venpath="/dev/block/bootdevice/by-name/vendor"
 
 	temp_mount "$TEMPVEN" "vendor" "$venpath"
 

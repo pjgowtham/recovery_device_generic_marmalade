@@ -52,7 +52,9 @@ on fs
     chown root system /dev/fscklogs/log
     chmod 0770 /dev/fscklogs/log
 
-    # Load Tuxera exFAT & NTFS modules
+    # Load vibration, touch, & Tuxera exFAT & NTFS modules
+    insmod /vendor/lib/modules/aw8697.ko
+    insmod /vendor/lib/modules/focaltech_fts_zf.ko
     insmod /vendor/lib/modules/texfat.ko
     insmod /vendor/lib/modules/tntfs.ko
 
@@ -61,6 +63,17 @@ on boot
 
 on post-fs
     start boot-hal-1-1
+
+on property:ro.boot.dynamic_partitions=true
+    wait /dev/block/bootdevice/by-name/vendor
+    start load_modules
+
+service load_modules /system/bin/load_modules.sh
+    user root
+    group root
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
 
 service vendor.qti.vibrator /system/bin/vendor.qti.hardware.vibrator.service
     user root
