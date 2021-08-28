@@ -37,12 +37,6 @@ on init
     # prepdecrypt.sh override props
     setprop prepdecrypt.setpatch_override true
     setprop prepdecrypt.setpatch false
-    #setprop prepdecrypt.loglevel 2
-
-    # load_modules override props
-    #setprop load_modules.loglevel 2
-
-    start vendor.qti.vibrator
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
@@ -71,14 +65,6 @@ on property:ro.boot.dynamic_partitions=true
 service load_modules /system/bin/load_modules.sh
     user root
     group root
-    disabled
-    oneshot
-    seclabel u:r:recovery:s0
-
-service vendor.qti.vibrator /system/bin/vendor.qti.hardware.vibrator.service
-    user root
-    group root
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
     disabled
     oneshot
     seclabel u:r:recovery:s0
