@@ -1,3 +1,8 @@
+# Storage
+external_storage.projid.enabled=1
+external_storage.casefold.enabled=1
+external_storage.sdcardfs.enabled=0
+
 # Crypto
 ro.crypto.allow_encrypt_override=true
 ro.crypto.dm_default_key.options_format.version=2
