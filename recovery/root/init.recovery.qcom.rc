@@ -34,10 +34,6 @@ on init
     # checker programs.
     mkdir /dev/fscklogs 0770 root system
 
-    # prepdecrypt.sh override props
-    setprop prepdecrypt.setpatch_override true
-    setprop prepdecrypt.setpatch false
-
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
@@ -58,8 +54,7 @@ on boot
 on post-fs
     start boot-hal-1-1
 
-on property:ro.boot.dynamic_partitions=true
-    wait /dev/block/bootdevice/by-name/vendor
+on property:ro.boot.dynamic_partitions=true && property:prepdecrypt.vendor_mounted=1
     start load_modules
 
 service load_modules /system/bin/load_modules.sh
