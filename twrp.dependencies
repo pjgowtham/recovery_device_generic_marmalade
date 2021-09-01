@@ -8,7 +8,7 @@
   {
     "remote": "LineageOS",
     "repository": "android_hardware_qcom_bootctrl",
-    "target_path": "hardware/qcom/bootctrl-caf",
+    "target_path": "hardware/qcom-caf/bootctrl",
     "revision": "lineage-18.1-caf"
   }
 ]
