@@ -98,10 +98,6 @@ PRODUCT_PACKAGES_ENG += \
 PRODUCT_SOONG_NAMESPACES += \
     $(DEVICE_PATH)
 
-# Set vendor patch level
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.build.security_patch=2099-12-31
-
 # OEM otacert
 PRODUCT_EXTRA_RECOVERY_KEYS += \
     $(DEVICE_PATH)/security/$(BOARD_VENDOR)
