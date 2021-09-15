@@ -1,4 +1,4 @@
-# ASUS ZenFone 8
-TWRP device tree for ASUS ZenFone 8
-a.k.a. "sake"
-a.k.a. ZS590KS
+# ASUS Snapdragon 888(+) devices
+TWRP common device tree for ASUS sm8350 devices
+- ROG Phone 5 Series
+- ZenFone 8
