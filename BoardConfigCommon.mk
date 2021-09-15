@@ -23,8 +23,8 @@
 # *not* include it on all devices, so it is safe even with hardware-specific
 # components.
 
-# Default device path for tree
-DEVICE_PATH := device/$(PRODUCT_BRAND)/$(TARGET_DEVICE)
+# Common path for SOC device trees
+COMMON_PATH := device/$(PRODUCT_BRAND)/$(COMMON_SOC)-common
 
 # Architecture
 TARGET_ARCH := arm64
@@ -54,9 +54,6 @@ TARGET_NO_KERNEL := false
 TARGET_KERNEL_ARCH := $(TARGET_ARCH)
 BOARD_KERNEL_IMAGE_NAME := Image.gz
 BOARD_INCLUDE_RECOVERY_DTBO := true
-BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
-TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
-TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/$(BOARD_KERNEL_IMAGE_NAME)
 BOARD_KERNEL_CMDLINE := \
     androidboot.console=ttyMSM0 \
     androidboot.hardware=qcom \
@@ -135,6 +132,7 @@ TARGET_RECOVERY_DEVICE_MODULES += \
     libcap \
     libion \
     libxml2
+TARGET_RECOVERY_FSTAB := $(COMMON_PATH)/recovery.fstab
 
 # Use mke2fs to create ext4 images
 TARGET_USES_MKE2FS := true
@@ -150,13 +148,13 @@ BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 1
 # Encryption
 BOARD_USES_METADATA_PARTITION := true
 BOARD_USES_QCOM_FBE_DECRYPTION := true
-PLATFORM_VERSION := 20.1.0
+PLATFORM_VERSION := 80
 PLATFORM_SECURITY_PATCH := 2099-12-31
-VENDOR_SECURITY_PATCH := 2099-12-31
+VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
 
 # Extras
-TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
-TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
+TARGET_SYSTEM_PROP += $(COMMON_PATH)/system.prop
+TARGET_VENDOR_PROP += $(COMMON_PATH)/vendor.prop
 
 # TWRP specific build flags
 TARGET_RECOVERY_QCOM_RTC_FIX := true
@@ -164,8 +162,6 @@ TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.0/lun.%d/file
 TW_CUSTOM_CPU_TEMP_PATH := "/sys/devices/virtual/thermal/thermal_zone50/temp"
 TW_THEME := portrait_hdpi
-TW_Y_OFFSET := 120
-TW_H_OFFSET := -120
 TW_BRIGHTNESS_PATH := "/proc/lcd_brightness"
 TW_DEFAULT_BRIGHTNESS := 420
 TW_MAX_BRIGHTNESS := 1024

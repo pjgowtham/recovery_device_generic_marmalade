@@ -30,7 +30,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 
 # Default device path for common folder
-DEVICE_PATH := device/$(BOARD_VENDOR)/$(PRODUCT_RELEASE_NAME)
+COMMON_PATH := device/$(BOARD_VENDOR)/$(COMMON_SOC)-common
 
 # A/B support
 AB_OTA_UPDATER := true
@@ -96,13 +96,18 @@ PRODUCT_PACKAGES_ENG += \
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
-    $(DEVICE_PATH)
+    $(COMMON_PATH)
 
 # OEM otacert
 PRODUCT_EXTRA_RECOVERY_KEYS += \
-    $(DEVICE_PATH)/security/$(BOARD_VENDOR)1 \
-    $(DEVICE_PATH)/security/$(BOARD_VENDOR)2
+    $(COMMON_PATH)/security/$(BOARD_VENDOR)1 \
+    $(COMMON_PATH)/security/$(BOARD_VENDOR)2
 
 # Apex libraries
 PRODUCT_COPY_FILES += \
     $(OUT_DIR)/target/product/$(PRODUCT_RELEASE_NAME)/obj/SHARED_LIBRARIES/libandroidicu_intermediates/libandroidicu.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libandroidicu.so
+
+# Copy modules for depmod
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/recovery/root/vendor/lib/modules/1.1/texfat.ko:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/1.1/texfat.ko \
+    $(COMMON_PATH)/recovery/root/vendor/lib/modules/1.1/tntfs.ko:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/1.1/tntfs.ko
