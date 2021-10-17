@@ -98,10 +98,12 @@ PRODUCT_PACKAGES_ENG += \
 PRODUCT_SOONG_NAMESPACES += \
     $(COMMON_PATH)
 
-# OEM otacert
+# OEM otacerts
 PRODUCT_EXTRA_RECOVERY_KEYS += \
     $(COMMON_PATH)/security/$(BOARD_VENDOR)1 \
-    $(COMMON_PATH)/security/$(BOARD_VENDOR)2
+    $(COMMON_PATH)/security/$(BOARD_VENDOR)2 \
+    $(COMMON_PATH)/security/$(BOARD_VENDOR)3 \
+    $(COMMON_PATH)/security/$(BOARD_VENDOR)4
 
 # Apex libraries
 PRODUCT_COPY_FILES += \
