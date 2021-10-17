@@ -24,9 +24,6 @@
 /efsg			emmc	/dev/block/bootdevice/by-name/fsg									flags=backup=1;subpartitionof=/efs1
 /efsg_CA		emmc	/dev/block/bootdevice/by-name/fsgCA									flags=backup=1;subpartitionof=/efs1
 
-# ASUS-Specific partitions
-/batinfo		ext4	/dev/block/bootdevice/by-name/batinfo								flags=display="Battery Info";fsflags=ro
-
 # System Configuration & ASUS keys
 /sysconf		emmc	/dev/block/bootdevice/by-name/sysconf								flags=backup=1;display="System Configuration Keys"
 /asuskey		emmc	/dev/block/bootdevice/by-name/asuskey								flags=backup=1;subpartitionof=/sysconf
