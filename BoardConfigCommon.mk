@@ -79,6 +79,7 @@ BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --kernel_offset $(BOARD_KERNEL_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
+#GENERIC_KERNEL_CMDLINE += androidboot.selinux=permissive
 
 # Platform
 TARGET_BOARD_PLATFORM := $(TARGET_BOOTLOADER_BOARD_NAME)
@@ -149,8 +150,11 @@ PLATFORM_SECURITY_PATCH := 2127-12-31
 VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
 
 # Extras
+BOARD_ROOT_EXTRA_FOLDERS := batinfo
 TARGET_SYSTEM_PROP += $(COMMON_PATH)/system.prop
 TARGET_VENDOR_PROP += $(COMMON_PATH)/vendor.prop
+USE_RECOVERY_INSTALLER := true
+RECOVERY_INSTALLER_PATH := bootable/recovery/installer
 
 # TWRP specific build flags
 TARGET_RECOVERY_QCOM_RTC_FIX := true
@@ -161,10 +165,11 @@ TW_THEME := portrait_hdpi
 TW_BRIGHTNESS_PATH := "/proc/lcd_brightness"
 TW_DEFAULT_BRIGHTNESS := 420
 TW_MAX_BRIGHTNESS := 1024
+TW_EXCLUDE_ADOPTABLE_STORAGE := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_EXTRA_LANGUAGES := true
 TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_NTFS_3G := true
+TW_NO_EXFAT_FUSE := true
 TW_INCLUDE_REPACKTOOLS := true
 TW_INCLUDE_RESETPROP := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
@@ -173,6 +178,7 @@ TW_OVERRIDE_SYSTEM_PROPS := \
 RECOVERY_LIBRARY_SOURCE_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libxml2.so
+TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko aw8697.ko focaltech_fts_rog.ko focaltech_fts_rog2.ko focaltech_fts_zf.ko swr_haptics_dlkm.ko texfat.ko tntfs.ko"
 
 # TWRP Debug Flags
 #TWRP_EVENT_LOGGING := true
@@ -184,4 +190,13 @@ TARGET_RECOVERY_DEVICE_MODULES += strace
 RECOVERY_BINARY_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/strace
 #TARGET_RECOVERY_DEVICE_MODULES += twrpdec
 #RECOVERY_BINARY_SOURCE_FILES += $(TARGET_RECOVERY_ROOT_OUT)/sbin/twrpdec
+
+# Custom TWRP Versioning
+#CUSTOM_TWRP_VERSION_PREFIX := CPTB
+
+#include device/common/version-info/custom_twrp_version.mk
+
+#ifeq ($(CUSTOM_TWRP_VERSION),)
+#CUSTOM_TWRP_VERSION := $(shell date -u +%Y%m%d)-01
+#endif
 
