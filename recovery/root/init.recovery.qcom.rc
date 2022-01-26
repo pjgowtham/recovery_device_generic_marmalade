@@ -30,6 +30,8 @@ import /init.recovery.qcom_decrypt.rc
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+    # Increase the size of /tmp for adb push stock OTA
+    mount tmpfs tmpfs /tmp size=80%
 
 on boot
     start health-hal-2-1
