@@ -182,7 +182,6 @@ TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_NTFS_3G := true
 TW_INCLUDE_REPACKTOOLS := true
 TW_INCLUDE_RESETPROP := true
-TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_OVERRIDE_SYSTEM_PROPS := \
     "ro.build.date.utc;ro.build.product;ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental"
 RECOVERY_LIBRARY_SOURCE_FILES += \
@@ -202,3 +201,25 @@ RECOVERY_BINARY_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/strace
 #TARGET_RECOVERY_DEVICE_MODULES += twrpdec
 #RECOVERY_BINARY_SOURCE_FILES += $(TARGET_RECOVERY_ROOT_OUT)/sbin/twrpdec
 
+#
+# For local builds only
+#
+# TWRP zip installer
+ifneq ($(wildcard bootable/recovery/installer/.),)
+    USE_RECOVERY_INSTALLER := true
+    RECOVERY_INSTALLER_PATH := bootable/recovery/installer
+endif
+
+# Custom TWRP Versioning
+ifneq ($(wildcard device/common/version-info/.),)
+    CUSTOM_TWRP_VERSION_PREFIX := CPTB
+
+    include device/common/version-info/custom_twrp_version.mk
+
+    ifeq ($(CUSTOM_TWRP_VERSION),)
+        CUSTOM_TWRP_VERSION := $(shell date +%Y%m%d)-01
+    endif
+endif
+#
+# end local build flags
+#
