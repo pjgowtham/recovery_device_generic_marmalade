@@ -173,6 +173,7 @@ TW_THEME := portrait_hdpi
 TW_Y_OFFSET := 120
 TW_H_OFFSET := -120
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
+TW_QCOM_ATS_OFFSET := 1621580431500
 TW_DEFAULT_BRIGHTNESS := 1023
 TW_MAX_BRIGHTNESS := 4096
 TW_NO_SCREEN_BLANK := true
