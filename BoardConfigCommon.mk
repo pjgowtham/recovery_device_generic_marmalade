@@ -158,6 +158,7 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.
 TW_CUSTOM_CPU_TEMP_PATH := "/sys/devices/virtual/thermal/thermal_zone50/temp"
 TW_THEME := portrait_hdpi
 TW_BRIGHTNESS_PATH := "/proc/lcd_brightness"
+TW_QCOM_ATS_OFFSET := 1621580431500
 TW_DEFAULT_BRIGHTNESS := 420
 TW_MAX_BRIGHTNESS := 1024
 TW_EXCLUDE_DEFAULT_USB_INIT := true
