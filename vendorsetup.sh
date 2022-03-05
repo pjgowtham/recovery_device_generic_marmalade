@@ -50,8 +50,6 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
     export OF_ALLOW_DISABLE_NAVBAR=0
     export OF_USE_LOCKSCREEN_BUTTON=1
     export FOX_BUGGED_AOSP_ARB_WORKAROUND="1616300800"
-    export FOX_USE_SPECIFIC_MAGISK_ZIP="~/magisk_canary_200122.zip"
-    export TW_DEVICE_VERSION="R11.1"
     export FOX_VERSION=R11.1_0
     export OF_USE_TWRP_SAR_DETECT=1
 
