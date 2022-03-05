@@ -79,7 +79,10 @@ BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --kernel_offset $(BOARD_KERNEL_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/$(BOARD_KERNEL_IMAGE_NAME)
 
+# OTA
+TARGET_OTA_ASSERT_DEVICE := RMX3360,RMX3360L1,RE54ABL1,RMX3363
 
 # Platform
 TARGET_BOARD_PLATFORM := $(TARGET_BOOTLOADER_BOARD_NAME)
@@ -91,7 +94,7 @@ QCOM_BOARD_PLATFORMS += $(TARGET_BOARD_PLATFORM)
 BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_USES_PRODUCTIMAGE := true
 
-BOARD_BOOTIMAGE_PARTITION_SIZE := 100663296
+BOARD_BOOTIMAGE_PARTITION_SIZE := 201326592
 BOARD_SYSTEMIMAGE_JOURNAL_SIZE := 0
 BOARD_SYSTEMIMAGE_EXTFS_INODE_COUNT := 4096
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -126,12 +129,17 @@ BOARD_USES_RECOVERY_AS_BOOT := true
 TARGET_NO_RECOVERY := true
 TARGET_RECOVERY_DEVICE_MODULES += \
     libandroidicu \
-    libcap \
+    libdisplayconfig.qti \
     libion \
-    libxml2
+    vendor.display.config@1.0 \
+    vendor.display.config@2.0 \
+    libdisplayconfig.qti
 
 # Use mke2fs to create ext4 images
 TARGET_USES_MKE2FS := true
+
+# Root
+BOARD_ROOT_EXTRA_FOLDERS := my_carrier my_company my_engineering my_heytap my_manifest my_preload my_product my_region my_stock my_version opporeserve
 
 # AVB
 BOARD_AVB_ENABLE := true
@@ -161,9 +169,10 @@ TW_CUSTOM_CPU_TEMP_PATH := "/sys/devices/virtual/thermal/thermal_zone50/temp"
 TW_THEME := portrait_hdpi
 TW_Y_OFFSET := 120
 TW_H_OFFSET := -120
-TW_BRIGHTNESS_PATH := "/proc/lcd_brightness"
-TW_DEFAULT_BRIGHTNESS := 420
-TW_MAX_BRIGHTNESS := 1024
+TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
+TW_DEFAULT_BRIGHTNESS := 1023
+TW_MAX_BRIGHTNESS := 4096
+TW_NO_SCREEN_BLANK := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_EXTRA_LANGUAGES := true
 TW_INCLUDE_CRYPTO := true
@@ -172,11 +181,12 @@ TW_INCLUDE_REPACKTOOLS := true
 TW_INCLUDE_RESETPROP := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_OVERRIDE_SYSTEM_PROPS := \
-    "ro.build.date.utc;ro.build.product;ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental;ro.product.device=ro.product.system.device;ro.product.model=ro.product.system.model;ro.product.name=ro.product.system.name"
+    "ro.build.date.utc;ro.build.product;ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental"
 RECOVERY_LIBRARY_SOURCE_FILES += \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libcap.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libxml2.so
+    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/libdisplayconfig.qti.so \
+    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@1.0.so \
+    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@2.0.so
 
 # TWRP Debug Flags
 #TWRP_EVENT_LOGGING := true

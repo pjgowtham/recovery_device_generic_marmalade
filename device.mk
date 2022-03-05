@@ -96,7 +96,8 @@ PRODUCT_PACKAGES += \
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
-    $(DEVICE_PATH)
+    $(DEVICE_PATH) \
+    vendor/qcom/opensource/commonsys-intf/display
 
 # OEM otacert
 PRODUCT_EXTRA_RECOVERY_KEYS += \

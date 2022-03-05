@@ -31,22 +31,17 @@ on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
 
-    # Load vibration, touch, & Tuxera exFAT & NTFS modules
-    insmod /vendor/lib/modules/aw8697.ko
-    insmod /vendor/lib/modules/focaltech_fts_zf.ko
-    insmod /vendor/lib/modules/texfat.ko
-    insmod /vendor/lib/modules/tntfs.ko
-
 on boot
     start health-hal-2-1
 
 on post-fs
     start boot-hal-1-1
 
-on property:ro.boot.dynamic_partitions=true && property:prepdecrypt.vendor_mounted=1
-    start load_modules
+on boot
+    chmod 0777 /system/bin/custom-script.sh
+    start custom-script
 
-service load_modules /system/bin/load_modules.sh
+service custom-script /system/bin/custom-script.sh
     user root
     group root
     disabled
