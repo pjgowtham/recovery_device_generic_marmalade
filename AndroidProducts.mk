@@ -15,4 +15,4 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/twrp_RMX3360.mk
+    $(LOCAL_DIR)/twrp_marmalade.mk

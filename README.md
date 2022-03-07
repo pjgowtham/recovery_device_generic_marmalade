@@ -1,3 +1,1 @@
-# Realme GT Master Edition
-TWRP device tree for Realme GT Master Edition
-a.k.a. RMX3360
+Recovery device tree for Realme GT, Realme GT Master Edition, Realme Q3S
