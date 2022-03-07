@@ -1,8 +1,54 @@
 #!/system/bin/sh
 # This script is needed to set some device props
 
+# Oppo K9S
+load_OP524F()
+{
+      resetprop "ro.product.device" "OP524F,PERM10"
+      resetprop "ro.twrp.target.devices" "OP524F,PERM10"
+}
 
+# Realme GT Master edition
+load_RMX3360()
+{
+      resetprop "ro.product.device" "RMX3360,RMX3360L1,RE54ABL1,RMX3363"
+      resetprop "ro.twrp.target.devices" "RMX3360,RMX3360L1,RE54ABL1,RMX3363"
+}
+
+# Realme GT 5G
+load_RMX2202()
+{
+      resetprop "ro.product.device" "RMX2202,RMX2202L1,RMX2202CN"
+      resetprop "ro.twrp.target.devices" "RMX2202,RMX2202L1,RMX2202CN"
+}
+
+# Realme Q3S
+load_RMX3461()
+{
+      resetprop "ro.product.device" "RMX3461,RE548B"
+      resetprop "ro.twrp.target.devices" "RMX3461,RE548B"
+}
+
+project=$(getprop ro.boot.prjname)
 echo "Running Custom Script for $(getprop ro.product.device) , prjname $(getprop ro.boot.prjname)" >> /tmp/recovery.log
+
+case $project in
+     "20664")
+          load_RMX2202
+          ;;
+     "20627")
+          load_RMX2202
+          ;;
+     "21075")
+          load_OP524F
+          ;;
+     "21644")
+          load_RMX3461
+          ;;
+     "21675")
+          load_RMX3360
+          ;;             
+esac
 
 # Set vendor.usb.product_string ( Obtained from init.qcom.usb.sh)
 msm_serial=`cat /sys/devices/soc0/serial_number`

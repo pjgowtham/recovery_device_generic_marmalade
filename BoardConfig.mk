@@ -87,9 +87,6 @@ TARGET_KERNEL_CONFIG := lahaina_defconfig
 #NEED_KERNEL_MODULE_RECOVERY := true
 BOOT_KERNEL_MODULES := adsp_loader_dlkm.ko apr_dlkm.ko q6_notifier_dlkm.ko q6_pdr_dlkm.ko snd_event_dlkm.ko
 
-# OTA
-TARGET_OTA_ASSERT_DEVICE := RMX3360,RMX3360L1,RE54ABL1,RMX3363
-
 # Platform
 TARGET_BOARD_PLATFORM := $(TARGET_BOOTLOADER_BOARD_NAME)
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno660
