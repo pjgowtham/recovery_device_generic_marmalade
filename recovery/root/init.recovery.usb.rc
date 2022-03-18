@@ -49,7 +49,6 @@ on init
 
 on boot
     setprop sys.usb.mtp.device_type 3
-    setprop vendor.usb.product_string "ZenFone 8"
     write /config/usb_gadget/g1/strings/0x409/product ${vendor.usb.product_string}
     write /config/usb_gadget/g2/strings/0x409/product ${vendor.usb.product_string}
 

@@ -1,4 +1,3 @@
-# ASUS ZenFone 8
-TWRP device tree for ASUS ZenFone 8
-a.k.a. "sake"
-a.k.a. ZS590KS
+# Realme GT Master Edition
+TWRP device tree for Realme GT Master Edition
+a.k.a. RMX3360
