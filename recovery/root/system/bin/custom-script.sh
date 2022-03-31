@@ -1,6 +1,13 @@
 #!/system/bin/sh
 # This script is needed to set some device props
 
+# Oneplus 9RT
+load_OP5155()
+{
+      resetprop "ro.product.device" "OP5155,OP5155L1,MT2111"
+      resetprop "ro.twrp.target.devices" "OP5155,OP5155L1,MT2111"
+}
+
 # Oppo K9S
 load_OP524F()
 {
@@ -39,6 +46,9 @@ case $project in
      "20627")
           load_RMX2202
           ;;
+     "20821")
+          load_OP5155
+          ;;
      "21075")
           load_OP524F
           ;;
@@ -47,7 +57,7 @@ case $project in
           ;;
      "21675")
           load_RMX3360
-          ;;             
+          ;;
 esac
 
 # Set vendor.usb.product_string ( Obtained from init.qcom.usb.sh)
