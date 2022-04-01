@@ -32,8 +32,8 @@ load_RMX2202()
 # Realme Q3S
 load_RMX3461()
 {
-      resetprop "ro.product.device" "RMX3461,RE548B"
-      resetprop "ro.twrp.target.devices" "RMX3461,RE548B"
+      resetprop "ro.product.device" "RMX3461,RE548B,RMX3461T2,RE548BL1,RE54BFL1"
+      resetprop "ro.twrp.target.devices" "RMX3461,RE548B,RMX3461T2,RE548BL1,RE54BFL1"
 }
 
 project=$(getprop ro.boot.prjname)
@@ -52,7 +52,7 @@ case $project in
      "21075")
           load_OP524F
           ;;
-     "21644")
+     "21643"|"21644"|"21695")
           load_RMX3461
           ;;
      "21675")
