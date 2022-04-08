@@ -60,6 +60,9 @@ case $project in
           ;;
 esac
 
+# Force update touchpanel firmware
+echo 1 > /proc/touchpanel/tp_fw_update
+
 # Set vendor.usb.product_string ( Obtained from init.qcom.usb.sh)
 msm_serial=`cat /sys/devices/soc0/serial_number`
 msm_serial_hex=`printf %08X $msm_serial`
