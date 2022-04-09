@@ -34,6 +34,10 @@ on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
 
+    # Mount firmware
+    mkdir /firmware
+    mount vfat /dev/block/bootdevice/by-name/modem${ro.boot.slot_suffix} /firmware ro
+
 on boot
     start health-hal-2-1
 
@@ -50,3 +54,10 @@ on post-fs-data
     chmod 0775 /batinfo
     restorecon_recursive /batinfo
 # --- ASUS_BSP : add for asus battery safety upgrade and health partition
+
+on property:twrp.modules.loaded=true
+    # Load ADSP firmware for PMIC
+    wait /sys/kernel/boot_adsp/boot
+    write /sys/kernel/boot_adsp/boot 1
+    wait /sys/class/power_supply/battery
+    umount /firmware

@@ -1,4 +1,11 @@
 # mount point	fstype	device											device2				flags
+# Logical partitions
+/system_ext	ext4	system_ext															flags=display=System_EXT
+
+# Userdata/Metadata partitions
+/metadata	ext4	/dev/block/by-name/metadata													flags=display=Metadata
+
+# Boot partitions
 /boot			emmc	/dev/block/bootdevice/by-name/boot									flags=slotselect
 /vendor_boot	emmc	/dev/block/bootdevice/by-name/vendor_boot							flags=slotselect;display="Vendor Boot";backup=1;flashimg=1
 
