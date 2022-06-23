@@ -40,6 +40,7 @@ on fs
 
 on boot
     start health-hal-2-1
+    start custom-script
 
 on post-fs
     start boot-hal-1-1
@@ -50,3 +51,10 @@ on property:twrp.modules.loaded=true
     write /sys/kernel/boot_adsp/boot 1
     wait /sys/class/power_supply/battery
     umount /firmware
+    
+service custom-script /system/bin/custom-script.sh
+    user root
+    group root
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0    
