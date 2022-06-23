@@ -52,6 +52,10 @@ TARGET_KERNEL_ARCH := $(TARGET_ARCH)
 BOARD_KERNEL_IMAGE_NAME := Image.gz
 BOARD_BOOT_HEADER_VERSION := 3
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
+NEED_KERNEL_MODULE_RECOVERY := true
+TARGET_KERNEL_SOURCE := kernel/oplus/sm8350
+TARGET_KERNEL_CLANG_COMPILE := true
+TARGET_KERNEL_CONFIG := vendor/lahaina-qgki_defconfig
 
 # Platform
 TARGET_BOARD_PLATFORM := $(TARGET_BOOTLOADER_BOARD_NAME)
@@ -63,7 +67,7 @@ QCOM_BOARD_PLATFORMS += $(TARGET_BOARD_PLATFORM)
 BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_USES_PRODUCTIMAGE := true
 
-BOARD_BOOTIMAGE_PARTITION_SIZE := 100663296
+BOARD_BOOTIMAGE_PARTITION_SIZE := 201326592
 BOARD_SYSTEMIMAGE_JOURNAL_SIZE := 0
 BOARD_SYSTEMIMAGE_EXTFS_INODE_COUNT := 4096
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -102,7 +106,7 @@ TARGET_RECOVERY_DEVICE_MODULES += \
     libxml2 \
     vendor.display.config@1.0 \
     vendor.display.config@2.0
-TARGET_RECOVERY_FSTAB := $(COMMON_PATH)/recovery.fstab
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
 
 # Use mke2fs to create ext4 images
 TARGET_USES_MKE2FS := true
@@ -125,8 +129,8 @@ VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
 
 # Extras
 BOARD_ROOT_EXTRA_FOLDERS := batinfo
-TARGET_SYSTEM_PROP += $(COMMON_PATH)/system.prop
-TARGET_VENDOR_PROP += $(COMMON_PATH)/vendor.prop
+TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
+TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 
 # TWRP specific build flags
 TARGET_RECOVERY_QCOM_RTC_FIX := true
@@ -134,7 +138,7 @@ TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.0/lun.%d/file
 TW_CUSTOM_CPU_TEMP_PATH := "/sys/devices/virtual/thermal/thermal_zone50/temp"
 TW_THEME := portrait_hdpi
-TW_BRIGHTNESS_PATH := "/proc/lcd_brightness"
+TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
 TW_QCOM_ATS_OFFSET := 1621580431500
 TW_DEFAULT_BRIGHTNESS := 420
 TW_MAX_BRIGHTNESS := 1024
@@ -151,7 +155,7 @@ RECOVERY_LIBRARY_SOURCE_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libxml2.so \
     $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@1.0.so \
     $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@2.0.so
-TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko aw8697.ko focaltech_fts_rog.ko focaltech_fts_rog2.ko focaltech_fts_zf.ko swr_haptics_dlkm.ko texfat.ko tntfs.ko"
+TW_LOAD_VENDOR_MODULES := "msm_drm.ko adsp_loader_dlkm.ko"
 
 # TWRP Debug Flags
 #TWRP_EVENT_LOGGING := true
@@ -179,7 +183,7 @@ ifneq ($(wildcard device/common/version-info/.),)
     include device/common/version-info/custom_twrp_version.mk
 
     # version prefix is optional - the default value is "LOCAL" if nothing is set in device tree
-    CUSTOM_TWRP_VERSION_PREFIX := CPTB
+    #CUSTOM_TWRP_VERSION_PREFIX := CPTB
 
     ifeq ($(CUSTOM_TWRP_VERSION),)
         CUSTOM_TWRP_VERSION := $(shell date +%Y%m%d)-01
