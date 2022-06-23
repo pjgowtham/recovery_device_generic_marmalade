@@ -52,6 +52,9 @@ on boot
     write /config/usb_gadget/g1/strings/0x409/product ${vendor.usb.product_string}
     write /config/usb_gadget/g2/strings/0x409/product ${vendor.usb.product_string}
 
+    # OTG
+    write /sys/class/oplus_chg/usb/otg_switch 1
+
 on boot && property:vendor.usb.use_ffs_mtp=1
    mkdir /config/usb_gadget/g1/functions/ffs.mtp
    mkdir /dev/usb-ffs/mtp 0770 mtp mtp
