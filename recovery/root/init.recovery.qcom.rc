@@ -29,6 +29,8 @@ import /init.recovery.qcom_decrypt.rc
 
 on init
     write /sys/class/backlight/panel0-backlight/brightness 200
+    insmod /vendor/lib/modules/msm_drm.ko
+    insmod /vendor/lib/modules/adsp_loader_dlkm.ko
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
