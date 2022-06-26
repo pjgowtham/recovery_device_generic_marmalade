@@ -57,6 +57,9 @@ on init
 
 on boot
     start health-hal-2-1
+    
+on boot && property:ro.boot.prjname=*
+    start load_oplus_props
 
 on property:twrp.modules.loaded=true
     # Load ADSP firmware for PMIC
@@ -64,3 +67,10 @@ on property:twrp.modules.loaded=true
     write /sys/kernel/boot_adsp/boot 1
     wait /sys/class/power_supply/battery
     umount /firmware
+    
+service load_oplus_props /system/bin/load_oplus_props.sh
+    user root
+    group root
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
