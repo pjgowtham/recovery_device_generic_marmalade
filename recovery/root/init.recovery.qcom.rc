@@ -42,6 +42,9 @@ on boot
     start health-hal-2-1
 
 on post-fs
+    # Asus backlight adjustment node
+    symlink /proc/lcd_brightness /sys/class/backlight/panel0-backlight/brightness
+    
     start boot-hal-1-1
 
 on post-fs-data
