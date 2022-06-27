@@ -95,8 +95,3 @@ PRODUCT_PACKAGES += \
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(DEVICE_PATH)
-
-# OEM otacerts
-PRODUCT_EXTRA_RECOVERY_KEYS += \
-    $(DEVICE_PATH)/security/$(BOARD_VENDOR)1 \
-    $(DEVICE_PATH)/security/$(BOARD_VENDOR)2
