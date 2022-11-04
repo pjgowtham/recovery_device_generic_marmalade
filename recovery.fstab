@@ -41,6 +41,7 @@ product                                                 /product               e
 vendor                                                  /vendor                ext4    ro,barrier=1,discard                                                                            wait,slotselect,logical
 odm                                                     /odm                   ext4    ro,barrier=1,discard                                                                            wait,slotselect,logical
 system_ext                                              /system_ext            ext4    ro,barrier=1,discard                                                                            wait,slotselect,logical
+vendor_dlkm                                             /vendor_dlkm           ext4    ro,barrier=1,discard                                                                            wait,slotselect,logical
 
 system                                                  /system                erofs   ro                                                                                              wait,slotselect,logical
 product                                                 /product               erofs   ro                                                                                              wait,slotselect,logical
