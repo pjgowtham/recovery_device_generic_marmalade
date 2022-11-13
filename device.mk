@@ -86,6 +86,10 @@ PRODUCT_PACKAGES += \
     android.hardware.fastboot@1.0-impl-mock \
     fastbootd
 
+# fstab
+PRODUCT_PACKAGES += \
+    fstab.default.vendor_ramdisk
+
 # qcom decryption
 PRODUCT_PACKAGES += \
     qcom_decrypt \
