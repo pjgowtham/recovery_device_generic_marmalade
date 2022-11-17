@@ -53,11 +53,28 @@ BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
 # Kernel
 TARGET_NO_KERNEL := false
 TARGET_KERNEL_ARCH := $(TARGET_ARCH)
+BOARD_KERNEL_CMDLINE := \
+    androidboot.hardware=qcom \
+    androidboot.memcg=1 \
+    androidboot.usbcontroller=a600000.dwc3 \
+    cgroup.memory=nokmem,nosocket \
+    loop.max_part=7 \
+    lpm_levels.sleep_disabled=1 \
+    msm_rtb.filter=0x237 \
+    pcie_ports=compat \
+    service_locator.enable=1 \
+    swiotlb=0 \
+    ip6table_raw.raw_before_defrag=1 \
+    iptable_raw.raw_before_defrag=1
+BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_IMAGE_NAME := Image.gz
 BOARD_BOOT_HEADER_VERSION := 4
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 BOARD_RAMDISK_USE_LZ4 := true
+
+# DLKM
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES := $(DEVICE_PATH)/prebuilt/dlkm/msm_drm.ko
 
 # Platform
 TARGET_BOARD_PLATFORM := $(TARGET_BOOTLOADER_BOARD_NAME)
