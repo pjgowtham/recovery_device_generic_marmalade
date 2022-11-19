@@ -1,38 +1,32 @@
 //
-// Copyright (C) 2018 The Android Open Source Project
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright (C) 2022 The Android Open Source Project
+// SPDX-License-Identifier: Apache-2.0
 //
 
-
-cc_library {
-    name: "libgptutils.generic_lahaina",
-    vendor: true,
+cc_defaults {
+    name: "libgptutils.marmalade",
+    export_include_dirs: ["."],
+    header_libs: ["generated_kernel_headers"],
     recovery_available: true,
     shared_libs: [
         "libcutils",
         "liblog",
         "libz",
     ],
-    cflags: [
-        "-Wall",
-        "-Werror",
-        "-D_BSG_FRAMEWORK_KERNEL_HEADERS",
-    ],
     srcs: [
         "gpt-utils.cpp",
         "recovery-ufs-bsg.cpp",
     ],
-    owner: "qti",
-    export_include_dirs: ["."],
+    vendor: true,
+}
+
+cc_library {
+    name: "libgptutils-sg.marmalade",
+    defaults: ["libgptutils.marmalade"],
+}
+
+cc_library {
+    name: "libgptutils-bsg.marmalade",
+    defaults: ["libgptutils.marmalade"],
+    cflags: ["-D_BSG_FRAMEWORK_KERNEL_HEADERS"],
 }
