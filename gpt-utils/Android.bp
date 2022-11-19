@@ -6,7 +6,7 @@
 cc_defaults {
     name: "libgptutils.marmalade",
     export_include_dirs: ["."],
-    header_libs: ["generated_kernel_headers"],
+    //header_libs: ["generated_kernel_headers"],
     recovery_available: true,
     shared_libs: [
         "libcutils",
