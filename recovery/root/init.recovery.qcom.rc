@@ -36,7 +36,7 @@ on fs
     mount vfat /dev/block/bootdevice/by-name/modem${ro.boot.slot_suffix} /firmware ro
 
 on post-fs
-    start boot-hal-1-1
+    start boot-hal-1-2
 
 on post-fs-data
 # +++ ASUS_BSP : add for asus battery safety upgrade and health partition
