@@ -117,15 +117,18 @@ BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := \
     system_ext \
     vendor \
     product \
-    odm
+    odm \
+    vendor_dlkm
 
 # Workaround for error copying vendor files to recovery ramdisk
 BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_PRODUCT := product
 TARGET_COPY_OUT_SYSTEM_EXT := system_ext
 TARGET_COPY_OUT_VENDOR := vendor
+TARGET_COPY_OUT_VENDOR_DLKM := vendor_dlkm
 
 # Recovery
 ifeq ($(BOARD_BOOT_HEADER_VERSION),3)
