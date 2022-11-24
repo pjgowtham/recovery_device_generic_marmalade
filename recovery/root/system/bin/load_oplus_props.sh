@@ -27,7 +27,7 @@ case $oplus_project in
           resetprop ro.twrp.target.devices RMX2202,RMX2202L1,RMX2202CN
           resetprop ro.product.device RMX2202
           ;;
-     "20821") # Oneplus 9RT
+     "20820"|"20821") # Oneplus 9RT
           resetprop ro.twrp.target.devices OP5155,OP5155L1,MT2111
           resetprop ro.product.device OP5155
           ;;
