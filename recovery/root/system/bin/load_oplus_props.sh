@@ -2,24 +2,16 @@
 # This script is needed to load properties for oplus devices
 
 oplus_project=$(getprop ro.boot.prjname)
-DIR="/odm/etc/$oplus_project"
+FILE="/odm/build.prop"
 generic_device_prop=$(getprop ro.product.device)
 
-if [ -d "$DIR" ]; then
-  echo "load_oplus_props: ODM already mounted, proceeding to load" > /tmp/recovery.log
-else
-  # Sleep for 3s to fix mount issues on boot
-  sleep 3
-  mount /odm
+sleep 3
+mount /odm
+
+if [ -d "$FILE" ]; then
+  # Stock ROM
+  resetprop --file $FILE
 fi
-
-resetprop --file /odm/etc/build.prop
-resetprop --file /odm/build.prop
-resetprop --file $DIR/build.default.prop
-umount /odm
-
-# Custom device asserts
-resetprop ro.twrp.target.devices $(getprop ro.product.odm.device),$(getprop ro.vendor.product.device.oem),$(getprop ro.vendor.product.oem)
 
 # Fallback to hardcoded asserts to support known devices to mitigate cases where ROM flashing goes awry
 case $oplus_project in
@@ -60,5 +52,17 @@ case $oplus_project in
           resetprop ro.product.device RMX3471
           ;;
 esac
+
+if [ $generic_device_prop == "marmalade" ]; then
+    # Custom ROM
+    resetprop --file odm/etc/build.prop
+    resetprop ro.product.device $(getprop ro.product.odm.device)
+else
+    resetprop ro.product.device $(getprop ro.product.device)
+fi
+
+# Custom device asserts
+resetprop ro.twrp.target.devices $(getprop ro.product.odm.device),$(getprop ro.vendor.product.device.oem),$(getprop ro.vendor.product.oem)
+umount /odm
 
 exit 0
