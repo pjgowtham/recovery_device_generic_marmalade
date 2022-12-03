@@ -2,24 +2,24 @@
 # This script is needed to load properties for oplus devices
 
 oplus_project=$(getprop ro.boot.prjname)
-DIR="/odm/etc/$oplus_project"
-generic_device_prop=$(getprop ro.product.device)
+OEM_PROP_FILE="/odm/build.prop"
 
-if [ -d "$DIR" ]; then
-  echo "load_oplus_props: ODM already mounted, proceeding to load" > /tmp/recovery.log
+sleep 3
+mount /odm
+
+if [ -d "$OEM_PROP_FILE" ]; then
+    # Stock ROM
+    resetprop --file $OEM_PROP_FILE
+    resetprop ro.twrp.target.devices $(getprop ro.vendor.product.device.oem),$(getprop ro.vendor.product.oem)
+    resetprop ro.product.device $(getprop ro.vendor.product.device.oem)
 else
-  # Sleep for 3s to fix mount issues on boot
-  sleep 3
-  mount /odm
+    # Custom ROM
+    resetprop --file odm/etc/build.prop
+    resetprop ro.twrp.target.devices $(getprop ro.product.odm.device),$(getprop ro.product.odm.model)
+    resetprop ro.product.device $(getprop ro.product.odm.device)
 fi
 
-resetprop --file /odm/etc/build.prop
-resetprop --file /odm/build.prop
-resetprop --file $DIR/build.default.prop
 umount /odm
-
-# Custom device asserts
-resetprop ro.twrp.target.devices $(getprop ro.product.odm.device),$(getprop ro.vendor.product.device.oem),$(getprop ro.vendor.product.oem)
 
 # Fallback to hardcoded asserts to support known devices to mitigate cases where ROM flashing goes awry
 case $oplus_project in

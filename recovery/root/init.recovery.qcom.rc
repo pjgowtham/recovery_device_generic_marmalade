@@ -58,6 +58,9 @@ on boot
 on boot && property:ro.boot.prjname=*
     start load_oplus_props
 
+on boot && property:ro.boot.prjname=
+    start load_custom_odm_props
+
 on property:twrp.modules.loaded=true
     # Load ADSP firmware for PMIC
     wait /sys/kernel/boot_adsp/boot
@@ -66,6 +69,13 @@ on property:twrp.modules.loaded=true
     umount /firmware
     
 service load_oplus_props /system/bin/load_oplus_props.sh
+    user root
+    group root
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
+
+service load_custom_odm_props /system/bin/load_custom_odm_props.sh
     user root
     group root
     disabled
