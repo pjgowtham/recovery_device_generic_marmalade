@@ -61,7 +61,7 @@ on boot && property:ro.boot.prjname=*
 on boot && property:ro.boot.prjname=
     start load_custom_odm_props
 
-on property:twrp.modules.loaded=true
+on property:dev.mnt.blk.firmware=*
     # Load ADSP firmware for PMIC
     wait /sys/kernel/boot_adsp/boot
     write /sys/kernel/boot_adsp/boot 1
