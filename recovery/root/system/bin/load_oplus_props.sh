@@ -47,7 +47,7 @@ case $oplus_project in
           resetprop ro.twrp.target.devices RMX3461,RE548B,RMX3461T2,RE548BL1,RE54BFL1
           resetprop ro.product.device RMX3461
           ;;
-     "21675") # Realme GT Master Edition
+     "21675"|"21676") # Realme GT Master Edition
           resetprop ro.twrp.target.devices RMX3360,RMX3360L1,RE54ABL1,RMX3363
           resetprop ro.product.device RMX3360
           ;;
