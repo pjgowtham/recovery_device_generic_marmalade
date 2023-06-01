@@ -13,7 +13,6 @@ The Above code snippet is from "https://unofficialtwrp.com/build-compile-twrp-re
 Then Make the directory and enter it at your desired location might be external disk or your personal folder/drive wherever exeute this and setup space for TWRP:
 ```
 mkdir twrp && cd twrp
-
 ```
 Seup TWRP repo to download source code for Android 12.1:
 ```
