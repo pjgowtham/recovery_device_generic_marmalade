@@ -15,7 +15,7 @@ addons:
 services:
   - docker
 before_install:
-  - echo "!Dh120110" | docker login -u "FiniteCoder" --password-stdin 2>/dev/null
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin 2>/dev/null
   - docker pull fr3akyphantom/droid-builder:latest
 before_script:
   - cd $HOME && mkdir twrp
